@@ -7,7 +7,6 @@ import sys
 import logging
 import coloredlogs
 import requests
-import urllib3
 
 alfred = logging.getLogger("Xio_Collector")
 coloredlogs.install(level=os.getenv("LOG_LEVEL", "INFO"), logger=alfred)
@@ -22,6 +21,7 @@ def send_to_target_api(payload, target_api_url):
 
     Args:
         payload: json object containing the fields required by our storage API
+        target_api_url: URL for the API collecting all array data
 
     Returns:
         None
@@ -50,9 +50,7 @@ def get_xio_info(req):
     Gather XIO array cluster information
 
     Args:
-      xioarrayname: name of an XIO array
-      xiouser: admin user name
-      xiopasswd: password of admin user
+        req: dict object containing xioarrayname, xiouser and xiopasswd
 
     Return:
       xioarrayinfo: xio array information in json format
@@ -97,6 +95,8 @@ def handle(req):
     and send it to storage api taret
 
     Args:
+        req: dict payload containing xioarrayname, xiouser, xiopasswd and
+             target_api_url
 
     Return:
        None
@@ -104,7 +104,7 @@ def handle(req):
 
     try:
         socket.gethostbyname(req['xioarrayname'])
-    except:
+    except socket.error:
         alfred.error(f"Invalid Xio Array Name: {req['xioarrayname']}")
         sys.exit(1)
 
