@@ -112,8 +112,8 @@ def handle(req):
 
     xioarrayinfo = get_xio_info(req)
 
-    alfred.debug(f"""Getting ready to send payload to API endpoint.
-                 Here is the payload: {json.dumps(xioarrayinfo)}""")
+    alfred.debug("Getting ready to send payload to API endpoint."
+                 f" Here is the payload: {json.dumps(xioarrayinfo)}")
 
     send_to_target_api(xioarrayinfo, req['target_api_url'])
 

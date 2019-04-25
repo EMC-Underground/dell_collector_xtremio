@@ -4,6 +4,6 @@ COPY ./requirements.txt /
 
 RUN pip install --no-cache-dir -r /requirements.txt
 
-COPY ./xio_collector.py /
+COPY ./handler.py /
 
-ENTRYPOINT ["python /xio_collector.py"]
+ENTRYPOINT ["python /handler.py"]
